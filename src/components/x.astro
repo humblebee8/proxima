@@ -1,0 +1,93 @@
+---
+import XElement from 'astro-xelement'
+
+const {
+	type = 'span',
+	class: classList = '',
+	style: styles = '',
+	easing = 'linear',
+	duration = 1500,
+	fill = 'both',
+	gradient = '',
+	direction="alternate",
+	iterations=1,
+	delay="0",
+	fullNode="true",
+	animations="",
+	clean="true",
+	retain="true",
+	trigger="visible"
+} = Astro.props;
+
+const t = {
+	duration: parseInt(duration),
+	easing: easing,
+	fill: fill,
+	direction: direction,
+	iterations: parseInt(iterations),
+	delay: parseInt(delay)
+};
+
+let styleSet = styles;
+if ('' !== gradient) {
+	styleSet = `
+		background: linear-gradient(${gradient});
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	` + styles;
+}
+
+const animate = (target, store) => {
+	const fx = new store.Fx();
+	fx.animateNode(target, {
+		animationString: animations, 
+		timing: timing,
+		split: !JSON.parse(fullNode),
+		clean: JSON.parse(clean),
+		retain: retain
+	});
+}
+---
+
+<XElement @is={type}
+  style={styleSet}
+  class={classList}
+  define:vars={
+    {
+			animate,
+			fullNode,
+			animations,
+			timing: t,
+			clean: clean,
+			retain: retain,
+			trigger
+    }
+  }
+  
+  @visible={(event, store)=> {
+		if (trigger.search('visible') > -1) {
+			animate(event.target, store);
+		}
+  }}
+	@click={(event, store)=> {
+		if (trigger.search('click') > -1) {
+			animate(event.target, store);
+		}
+  }}
+	@mouseenter={(event, store)=> {
+		if (trigger.search('mouseenter') > -1 && trigger.search('mouseleave') < 0) {
+			animate(event.target, store);
+		}
+  }}
+	@mouseleave={(event, store)=> {
+		if (trigger.search('mouseleave') > -1 && trigger.search('mouseenter') < 0) {
+			animate(event.target, store);
+		}
+  }}
+><slot/></XElement>
+
+<script type="module">
+	import store from 'data:text/javascript,export default {}';
+	import Fx from '/src/components/fx/Fx.js';
+	store.Fx = Fx;
+</script>

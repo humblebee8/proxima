@@ -8,6 +8,14 @@
 
 // @ts-check
 export default /** @type {import('astro').AstroUserConfig} */ ({
-  // Comment out "renderers: []" to enable Astro's default component support.
-  renderers: [],
+  // buildOptions: {
+  //   sitemap: true,
+  //   site: 'https://astro.build/',
+  // },
+  vite: {
+    ssr: {
+      external: ["svgo"],
+    },
+  },
+  renderers: ['@astrojs/renderer-svelte'],
 });

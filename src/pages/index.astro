@@ -1,36 +1,73 @@
 ---
-	import Headline from "../components/headline/headline.astro";
+	import Default from "../layouts/Default.astro";
+	import Stars from "../components/effects/stars.astro";
+	import X from "../components/x.astro";
+  	import { Icon } from 'astro-icon';
 ---
-
-<html lang="en">
-
-<head>
-	<meta charset="utf-8" />
-	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
-	<meta name="viewport" content="width=device-width" />
-	<title>Welcome to Proxima</title>
-</head>
-<body>
-	<div style="width: 100%;">
-		<Headline 
-			class="red"
-			iterations="3"
-			duration="300"
-			delay="0"
-			fullNode="false"
-			retain="color"
-			easing="cubic-bezier(0.390, 0.575, 0.565, 1.000)"
-			animations="color: [#000014, randomColor, randomColor, randomColor, randomColor, randomColor, randomColor] | transform: [translateX(10%), translateY(20%), rotate(360deg), scale(0.75), rotate(45deg)] | opacity: [0.3, 0.5, 0.1, 0.8, 0, 1, 0.21]"
-		>
-				Headline h1
-		</Headline>
+<Default title="welcome to proxima" description="build magic components in no time">
+	<div class="h-96 absolute">
+		<Stars amount="21" />
 	</div>
-</body>
+	<div class="block pt-20 text-center font-bold">
+		<Icon class="mx-auto text-9xl transform rotate-45" name="rocket" />
+		<X
+			type="h1"
+			class="uppercase"
+			iterations="0"
+			duration="8000"
+			fullNode="false"
+			animations="color: [#cfb41a, #d86c14, #d81414] | transform: [scale(3) scale(0.3)]"
+		>
+			proxima
+		</X>
+	</div>
+	<X 
+		type="div"
+		class="opacity-0 text-3xl bg-centauri"
+		iterations="1"
+		duration="3000"
+		animations="opacity: [1] | background: [#cfb41a, #d86c14, #4C1D95, #312E81, #4C1D95]"
+	>
+		<div class="h-96 w-10 right-40 absolute mt-28">
+			<Stars amount="21" />
+		</div>
+		<p class="p-6 px-9 mt-12">
+			Welcome to proxima! Proxima is an animation library built with a minimal set of js on top
+			of 
+			<X 
+				type="span"
+				duration="3000" 
+				iterations="0"
+				fullNode="false"
+				animations="transform: [scale(1.25)] | color: [#cfb41a, #d86c14, #d81414]"
+			>
+			<a href="https://github.com/aFuzzyBear/astro-ui/tree/main/components/XElement" title="visit XElement github page" target="_blank">XElement</a>.
+			</X>
+		</p>
+		<p class="p-6 px-9 pt-0">
+			<X 
+				type="span"
+				duration="3000" 
+				iterations="0"
+				fullNode="false"
+				animations="transform: [rotate(21deg), rotate(10deg), rotate(-21deg), rotate(-10deg)]"
+			>Animations</X> 
+			in web have their limitations or require huge libraries with thousands of js code lines. With a very few lines proxima is different, while not a suite
+			for every need, it will cover most of cases to create nicely animated sites.
+		</p>
+	</X>
+	<X
+		type="div"
 
-</html>
+	>
+		<h2></h2>
+	</X>
+</Default>
 
-<style>
-	h1 {
-		font-size: 4rem;
-	}
-</style>
+<svg style="width:0;height:0;position:absolute;" aria-hidden="true" focusable="false">
+  <linearGradient id="logoGradient" x2="1" y2="1">
+    <stop offset="0%" stop-color="#cfb41a" />
+    <stop offset="50%" stop-color="#d86c14" />
+    <stop offset="100%" stop-color="#d81414" />
+  </linearGradient>
+</svg>
