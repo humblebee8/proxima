@@ -1,0 +1,134 @@
+---
+import XElement from 'astro-xelement'
+import Fx from '../fx/fx.js'
+
+const {
+    type = 'h1',
+    class: classList = '',
+    style: styles = '',
+    easing = 'linear',
+    duration = 1500,
+    fill = 'both',
+    gradient = '',
+    direction="alternate",
+    iterations=1,
+    delay="0",
+    fullNode="true",
+    animations="",
+    trigger="click"
+} = Astro.props;
+
+let animationX = {};
+if ('' !== animations) {
+    animationX = Fx.getAnimations(animations);
+}
+
+const animationTiming = {
+    duration: parseInt(duration),
+    easing: easing,
+    fill: fill,
+    direction: direction,
+    iterations: parseInt(iterations),
+    delay: parseInt(delay)
+};
+
+let styleSet = styles;
+if ('' !== gradient) {
+    styleSet = `
+                background: linear-gradient(${gradient});
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+    ` + styles;
+}
+---
+
+<XElement @is={type}
+  style={styleSet}
+  class={classList}
+  define:vars={
+    {
+        delay: animationTiming.delay,
+        fullNode,
+        animationX,
+        timing: animationTiming
+    }
+  }
+  
+  @visible={(event)=> {
+      if (timing.iterations < 1) {
+          timing.iterations = Infinity;
+      }
+
+      if ({} !== animationX) {
+        if (true === JSON.parse(fullNode)) {
+            event.target.animate(animationX, timing)
+        } else {
+            let anim;
+            const xEl = event.target;
+
+            const ANCHOR = xEl.querySelector('a');
+            if (null !== ANCHOR) {
+                xEl.textContent = xEl.textContent.replace(ANCHOR.innerText, '*');
+            }
+
+            const animTargets = xEl.textContent.split('');
+            xEl.textContent = '';
+
+            const fontSize = parseFloat(window.getComputedStyle(xEl, null).getPropertyValue('font-size')) || 24
+
+            animTargets.forEach((item, index) => {
+                let runAnim = true;
+
+                if ('*' === item) {
+                    let a = document.createElement('a');
+                    a.href = ANCHOR.href;
+                    a.target = ANCHOR.target;
+                    a.style.textDecoration = 'none';
+
+                    const ANCHORLETTERS = ANCHOR.innerText.split('');
+                    ANCHORLETTERS.forEach((aLetter) => {
+                        const SPAN = document.createElement('span');
+                        SPAN.innerText = aLetter;
+                        SPAN.style.display = 'inline-block';
+
+                        if (' ' === item) {
+                            SPAN.style.width = `${fontSize / 4}px`;
+                            runAnim = false;
+                        }
+                        
+                        a.append(SPAN);
+
+                        anim = SPAN.animate(animationX, timing);
+                        timing.delay = timing.delay + delay;
+                    });
+
+                    xEl.append(a);
+                    return;
+                }
+
+                if (item instanceof HTMLElement) {
+                    anim = item.animate(animationX, timing);
+                } else {
+                    const SPAN = document.createElement('span');
+                    SPAN.innerText = item;
+                    SPAN.style.display = 'inline-block';
+                    
+                    if (' ' === item) {
+                        SPAN.style.width = `${fontSize / 4}px`;
+                        runAnim = false;
+                    }
+    
+                    xEl.append(SPAN);
+    
+                    if (true === runAnim) {
+                        anim = SPAN.animate(animationX, timing);
+                    }
+                }
+                timing.delay = timing.delay + delay;
+            });
+        }
+      }
+  }}
+>
+<slot/>
+</XElement>
