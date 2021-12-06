@@ -1,45 +1,51 @@
 ---
 import XElement from 'astro-xelement'
-import Fx from '../fx/fx.mjs'
 
 const {
-    type = 'h1',
-    class: classList = '',
-    style: styles = '',
-    easing = 'linear',
-    duration = 1500,
-    fill = 'both',
-    gradient = '',
-    direction="alternate",
-    iterations=1,
-    delay="0",
-    fullNode="true",
-    animations="",
-    trigger="click"
+	type = 'span',
+	class: classList = '',
+	style: styles = '',
+	easing = 'linear',
+	duration = 1500,
+	fill = 'both',
+	gradient = '',
+	direction="alternate",
+	iterations=1,
+	delay="0",
+	fullNode="true",
+	animations="",
+	clean="true",
+	retain="true",
+	trigger="visible, click, mouseleave"
 } = Astro.props;
 
-const Fn = Fx
-let animationX = {};
-if ('' !== animations) {
-    animationX = Fx.getAnimations(animations);
-}
-
-const animationTiming = {
-    duration: parseInt(duration),
-    easing: easing,
-    fill: fill,
-    direction: direction,
-    iterations: parseInt(iterations),
-    delay: parseInt(delay)
+const t = {
+	duration: parseInt(duration),
+	easing: easing,
+	fill: fill,
+	direction: direction,
+	iterations: parseInt(iterations),
+	delay: parseInt(delay)
 };
 
 let styleSet = styles;
 if ('' !== gradient) {
-    styleSet = `
-                background: linear-gradient(${gradient});
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-    ` + styles;
+	styleSet = `
+		background: linear-gradient(${gradient});
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	` + styles;
+}
+
+const animate = (target, store) => {
+	const fx = new store.Fx();
+	fx.animateNode(target, {
+		animationString: animations, 
+		timing: timing,
+		split: !JSON.parse(fullNode),
+		clean: JSON.parse(clean),
+		retain: retain
+	});
 }
 ---
 
@@ -48,27 +54,40 @@ if ('' !== gradient) {
   class={classList}
   define:vars={
     {
-        Fn,
-        delay: animationTiming.delay,
-        fullNode,
-        animationX,
-        timing: animationTiming
+			animate,
+			fullNode,
+			animations,
+			timing: t,
+			clean: clean,
+			retain: retain,
+			trigger
     }
   }
   
-  @visible={(event)=> {
-      if (timing.iterations < 1) {
-          timing.iterations = Infinity;
-      }
-      
-      if ({} !== animationX) {
-        if (true === JSON.parse(fullNode)) {
-            event.target.animate(animationX, timing)
-        } else {
-            Fn.runSplitAnimations(event.target);
-        }
-      }
+  @visible={(event, store)=> {
+		if (trigger.search('visible') > -1) {
+			animate(event.target, store);
+		}
   }}
->
-<slot/>
-</XElement>
+	@click={(event, store)=> {
+		if (trigger.search('click') > -1) {
+			animate(event.target, store);
+		}
+  }}
+	@mouseenter={(event, store)=> {
+		if (trigger.search('mouseenter') > -1 && trigger.search('mouseleave') < 0) {
+			animate(event.target, store);
+		}
+  }}
+	@mouseleave={(event, store)=> {
+		if (trigger.search('mouseleave') > -1 && trigger.search('mouseenter') < 0) {
+			animate(event.target, store);
+		}
+  }}
+><slot/></XElement>
+
+<script type="module">
+	import store from 'data:text/javascript,export default {}';
+	import Fx from '/src/components/fx/Fx.js';
+	store.Fx = Fx;
+</script>
