@@ -1,11 +1,14 @@
 ---
 	import Default from "../layouts/Default.astro";
+	import Fx from '../components/fx/Fx.astro'
 	import Stars from "../components/effects/stars.astro";
 	import X from "../components/x.astro";
   	import { Icon } from 'astro-icon';
+	import { Code } from 'astro/components';
 ---
+<Fx/>
 <Default title="welcome to proxima" description="build magic components in no time">
-	<div class="h-96 absolute">
+	<div class="h-96 centered">
 		<Stars amount="21" />
 	</div>
 	<div class="block pt-20 text-center font-bold">
@@ -23,16 +26,23 @@
 	</div>
 	<X 
 		type="div"
-		class="opacity-0 text-3xl bg-centauri"
+		class="opacity-0 text-3xl bg-centauri lg:container lg:mx-auto"
 		iterations="1"
 		duration="3000"
 		animations="opacity: [1] | background: [#cfb41a, #d86c14, #4C1D95, #312E81, #4C1D95]"
 	>
-		<div class="h-96 w-10 right-40 absolute mt-28">
-			<Stars amount="21" />
-		</div>
-		<p class="p-6 px-9 mt-12">
-			Welcome to proxima! Proxima is an animation library built with a minimal set of js on top
+		<p class="p-6 px-9 mt-12 lg:p-9 lg:px-20">
+			<X
+				type="span"
+				class="uppercase text-3xl text-white"
+				iterations="1"
+				duration="1000"
+				delay="2000"
+				fullNode="false"
+				retain="color, transform"
+				animations="color: [#fff, #cfb41a, #d86c14, #d81414] | transform: [translateY(-9px) scale(2)]"
+			>W</X>
+			elcome to proxima! Proxima is an animation library built with a minimal set of js on top
 			of 
 			<X 
 				type="span"
@@ -44,23 +54,40 @@
 			<a href="https://github.com/aFuzzyBear/astro-ui/tree/main/components/XElement" title="visit XElement github page" target="_blank">XElement</a>.
 			</X>
 		</p>
-		<p class="p-6 px-9 pt-0">
-			<X 
+		<p class="p-6 px-9 pt-0 lg:p-9 lg:px-20">
+			<X
 				type="span"
-				duration="3000" 
-				iterations="0"
+				class="uppercase text-3xl text-white"
+				iterations="1"
+				duration="1000"
+				delay="4000"
 				fullNode="false"
-				animations="transform: [rotate(21deg), rotate(10deg), rotate(-21deg), rotate(-10deg)]"
-			>Animations</X> 
+				retain="color, transform"
+				animations="color: [#fff, #d81414, #d86c14, #cfb41a] | transform: [translateY(-9px) scale(2)]"
+			>A</X>nimations 
 			in web have their limitations or require huge libraries with thousands of js code lines. With a very few lines proxima is different, while not a suite
 			for every need, it will cover most of cases to create nicely animated sites.
 		</p>
 	</X>
 	<X
 		type="div"
-
+		class="transform translate-x-full opacity-0 p-6"
+		iterations="1"
+		duration="3000"
+		trigger="visible"
+		retain="opacity"
+		animations="transform: [translateX(0%)] | opacity: [1]"
 	>
-		<h2></h2>
+		<X
+			type="h2"
+			iterations="1"
+			duration="600"
+			delay="300"
+			trigger="visible"
+			fullNode="true"
+			animations="transform: [translateY(-5px)] | color: [#d81414, #d86c14, #cfb41a, #d86c14] | borderWidth: [0px, 4px, 10px, 9px] | borderColor: [#d81414, #d86c14, #cfb41a, #d86c14] | textTransform: [uppercase] | fontWeight: [bold] | paddingBottom: [10px] | paddingTop: [10px] | paddingLeft: [1px]"
+		>Example</X>
+		<Code code={`const foo = 'bar';`} lang="js" theme="dark-plus" />
 	</X>
 </Default>
 
