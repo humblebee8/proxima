@@ -19,11 +19,11 @@
                 transition:fly={{duration: 300, y: -200, delay: index * 100}}
                 class:active={currentPath === item.slug ? 'active' : ''}
                 class="inline-block text-center flex-grow uppercase cursor-pointer text-yellow-700 
-                text-4xl transition-all duration-1000 font-bold hover:text-yellow-300
+                text-2xl transition-all duration-1000 font-bold hover:text-yellow-300
             ">
                 {#if item.preventDefault && item.preventDefault === true}
                     <a 
-                        class="block p-3" 
+                        class="block p-3 mainmenu" 
                         href="#{undefined === item.slug ? '' : item.slug}"
                         title="navigate to {item.label}"
                     >
@@ -31,7 +31,7 @@
                     </a>
                 {:else}
                     <a 
-                        class="block p-3" 
+                        class="block p-3 mainmenu" 
                         href="/{undefined === item.slug ? '' : item.slug}"
                         title="navigate to {item.label}"
                     >

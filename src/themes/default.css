@@ -31,7 +31,7 @@ h5 {
 h6 {
   @apply text-xl;
 }
-a {
+a:not(.mainmenu) {
   @apply text-yellow-600 italic;
 }
 .active {
