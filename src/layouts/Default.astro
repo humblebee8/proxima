@@ -1,7 +1,7 @@
 ---
 	import Shell from "./Shell.astro";
   import { Icon } from 'astro-icon';
-
+  import Fx from '../components/fx/Fx.astro'
   // load default components
 	import Mainmenu from "../components/navigation/mainmenu.svelte";
   const titlePrefix = 'Centauri';
@@ -45,6 +45,7 @@
           <Mainmenu menuItems={menuItems && menuItems.length && menuItems.length > 0 ? menuItems : defaultMenuItems} client:load></Mainmenu>
         </div>
       </slot>
+      <Fx/>
     </header>
   </slot>
   <slot name="mainwrapper">
