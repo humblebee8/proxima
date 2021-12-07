@@ -8,14 +8,15 @@ const {
 	duration = 1500,
 	fill = 'both',
 	gradient = '',
-	direction="alternate",
-	iterations=1,
-	delay="0",
-	fullNode="true",
-	animations="",
-	clean="true",
-	retain="false",
-	trigger="visible"
+	direction = "alternate",
+	iterations = 1,
+	delay = "0",
+	fullNode = "true",
+	animations = "",
+	clean = "true",
+	retain = "false",
+	delayBetween = 0,
+	trigger = "visible"
 } = Astro.props;
 
 const t = {
@@ -43,12 +44,10 @@ const animate = (target, f) => {
 		timing: timing,
 		split: !JSON.parse(fullNode),
 		clean: JSON.parse(clean),
-		retain: retain
+		retain: retain,
+		delayBetweenLetters: parseInt(delayBetween)
 	});
 }
-// if ('' !== animations && trigger.search('visible') > -1) {
-//			animate(event.target, store);
-//		}
 ---
 
 <XElement @is={type}
@@ -62,11 +61,12 @@ const animate = (target, f) => {
 			timing: t,
 			clean: clean,
 			retain: retain,
-			trigger
+			trigger,
+			delayBetween: delayBetween
     }
   }
   
-  @visible:once={(event,store)=> {
+  @visible={(event,store)=> {
 	  	 if ('' !== animations && trigger.search('visible') > -1) {
 			animate(event.target,new store.Fx());
 		}

@@ -2,10 +2,10 @@ export default class Fx {
 	animations;
 	timing;
 	delay = 0;
+	delayBetweenLetters = 0;
 	clean = true;
 	retain = true;
 	isRunning = false;
-	opts = {};
 	randomColor = (() => {
 		return "#xxxxxx".replace(/x/g, y=>(Math.random()*16|0).toString(16));
 	});
@@ -74,13 +74,12 @@ export default class Fx {
 			options.timing.iterations = Infinity;
 		}
 
-		this.opts = options;
+		this.delayBetweenLetters = options.delayBetweenLetters;
 		this.timing = options.timing;
 		this.delay = options.timing.delay;
 		this.clean = options.clean;
 		this.retain = options.retain;
 		this.animations = this.getAnimations(options.animationString);
-
 		if (true === options.split) {
 			this.runSplitAnimations(node);
 		} else {
@@ -93,13 +92,9 @@ export default class Fx {
 		if (current === last - 1) {
 			this.cleanUp(node);
 		}
-		this.timing = this.opts.timing;
 	});
 	runFullAnimations = ((xEl) => {
-		const anim = xEl.animate(this.animations, this.timing);
-		anim.onfinish = (() => {
-			this.timing = this.opts.timing;
-		});
+		xEl.animate(this.animations, this.timing);
 	});
 	runSplitAnimations = ((xEl) => {
 		let anim;
@@ -112,10 +107,8 @@ export default class Fx {
 		xEl.textContent = '';
 
 		const fontSize = parseFloat(window.getComputedStyle(xEl, null).getPropertyValue('font-size')) || 24
-
 		animTargets.forEach((item, index) => {
 			let runAnim = true;
-
 			if ('*' === item) {
 				let a = document.createElement('a');
 				a.href = ANCHOR.href;
@@ -135,7 +128,14 @@ export default class Fx {
 					
 					a.append(SPAN);
 
-					anim = SPAN.animate(this.animations, this.timing);
+					anim = SPAN.animate(this.animations, {
+						duration: this.timing.duration,
+						easing: this.timing.easing,
+						fill: this.timing.fill,
+						direction: this.timing.direction,
+						iterations: this.timing.iterations,
+						delay: this.timing.delay + this.delayBetweenLetters * (index + 1)
+					});
 				});
 
 				xEl.append(a);
@@ -163,7 +163,14 @@ export default class Fx {
 				xEl.append(SPAN);
 
 				if (true === runAnim) {
-					anim = SPAN.animate(this.animations, this.timing);
+					anim = SPAN.animate(this.animations, {
+						duration: this.timing.duration,
+						easing: this.timing.easing,
+						fill: this.timing.fill,
+						direction: this.timing.direction,
+						iterations: this.timing.iterations,
+						delay: this.timing.delay + this.delayBetweenLetters * (index + 1)
+					});
                     
 					if (true === this.clean) {
 						anim.onfinish = (() => {
@@ -172,7 +179,6 @@ export default class Fx {
 					}
 				}
 			}
-			this.timing.delay = this.timing.delay + this.delay;
 		});
 	});
 }

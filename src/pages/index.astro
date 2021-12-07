@@ -1,8 +1,7 @@
 ---
-	import Default from "../layouts/Default.astro";
-	import Fx from '../components/fx/Fx.astro'
-	import Stars from "../components/effects/stars.astro";
-	import X from "../components/x.astro";
+	import Default from "$layouts/Default.astro";
+	import Stars from "$components/effects/stars.astro";
+	import X from "$components/x.astro";
   	import { Icon } from 'astro-icon';
 	import { Code } from 'astro/components';
 ---
@@ -18,6 +17,7 @@
 			iterations="0"
 			duration="8000"
 			fullNode="false"
+			delayBetween="300"
 			animations="color: [#cfb41a, #d86c14, #d81414] | transform: [scale(3) scale(0.3)]"
 		>
 			proxima
@@ -85,19 +85,48 @@
 			trigger="visible"
 			fullNode="true"
 			animations="transform: [translateY(-5px)] | color: [#d81414, #d86c14, #cfb41a, #d86c14] | borderWidth: [0px, 4px, 10px, 9px] | borderColor: [#d81414, #d86c14, #cfb41a, #d86c14] | textTransform: [uppercase] | fontWeight: [bold] | paddingBottom: [10px] | paddingTop: [10px] | paddingLeft: [1px]"
-		>Example</X>
+		>Examples</X>
 		<Code code={`const foo = 'bar';`} lang="js" theme="dark-plus" />
 	</X>
 	<X
 		type="div"
+		class="opacity-0 p-6"
 		iterations="1"
-		duration="600"
-		delay="300"
+		duration="3000"
 		trigger="visible"
-		fullNode="true"
-		animations="transform: [translateY(-5px)] | color: [#d81414, #d86c14, #cfb41a, #d86c14] | borderWidth: [0px, 4px, 10px, 9px] | borderColor: [#d81414, #d86c14, #cfb41a, #d86c14] | textTransform: [uppercase] | fontWeight: [bold] | paddingBottom: [10px] | paddingTop: [10px] | paddingLeft: [1px]"
+		retain="opacity"
+		animations="transform: [translateX(0%)] | opacity: [1]"
 	>
-		TEST
+		<X
+			type="h2"
+			iterations="1"
+			duration="600"
+			delay="300"
+			trigger="visible"
+			fullNode="true"
+			animations="transform: [translateY(-5px)] | color: [#d81414, #d86c14, #cfb41a, #d86c14] | borderWidth: [0px, 4px, 10px, 9px] | borderColor: [#d81414, #d86c14, #cfb41a, #d86c14] | textTransform: [uppercase] | fontWeight: [bold] | paddingBottom: [10px] | paddingTop: [10px] | paddingLeft: [1px]"
+		>Examples</X>
+		<Code code={`const foo = 'bar';`} lang="js" theme="dark-plus" />
+	</X>
+	<X
+		type="div"
+		class="opacity-0 p-6"
+		iterations="1"
+		duration="3000"
+		trigger="visible"
+		retain="opacity"
+		animations="transform: [translateX(0%)] | opacity: [1]"
+	>
+		<X
+			type="h2"
+			iterations="1"
+			duration="600"
+			delay="300"
+			trigger="visible"
+			fullNode="true"
+			animations="transform: [translateY(-5px)] | color: [#d81414, #d86c14, #cfb41a, #d86c14] | borderWidth: [0px, 4px, 10px, 9px] | borderColor: [#d81414, #d86c14, #cfb41a, #d86c14] | textTransform: [uppercase] | fontWeight: [bold] | paddingBottom: [10px] | paddingTop: [10px] | paddingLeft: [1px]"
+		>Examples</X>
+		<Code code={`const foo = 'bar';`} lang="js" theme="dark-plus" />
 	</X>
 </Default>
 
