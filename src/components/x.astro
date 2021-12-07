@@ -66,24 +66,24 @@ const animate = (target, f) => {
     }
   }
   
-  @visible={(event,store)=> {
+  @visible:once={(event,store)=> {
 	  	 if ('' !== animations && trigger.search('visible') > -1) {
 			animate(event.target,new store.Fx());
 		}
   }}
 	@click={(event, store)=> {
 		if ('' !== animations && trigger.search('click') > -1) {
-			console.log('store from click',store)
+			animate(event.target,new store.Fx());
 		}
   }}
 	@mouseenter={(event, store)=> {
 		if ('' !== animations && trigger.search('mouseenter') > -1 && trigger.search('mouseleave') < 0) {
-			animate(event.target, store);
+			aanimate(event.target,new store.Fx());
 		}
   }}
 	@mouseleave={(event, store)=> {
 		if ('' !== animations && trigger.search('mouseleave') > -1 && trigger.search('mouseenter') < 0) {
-			animate(event.target, store);
+			animate(event.target,new store.Fx());
 		}
   }}
 ><slot/></XElement>
