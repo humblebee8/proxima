@@ -5,6 +5,7 @@ export default class Fx {
 	clean = true;
 	retain = true;
 	isRunning = false;
+	opts = {};
 	randomColor = (() => {
 		return "#xxxxxx".replace(/x/g, y=>(Math.random()*16|0).toString(16));
 	});
@@ -73,6 +74,7 @@ export default class Fx {
 			options.timing.iterations = Infinity;
 		}
 
+		this.opts = options;
 		this.timing = options.timing;
 		this.delay = options.timing.delay;
 		this.clean = options.clean;
@@ -91,9 +93,13 @@ export default class Fx {
 		if (current === last - 1) {
 			this.cleanUp(node);
 		}
+		this.timing = this.opts.timing;
 	});
 	runFullAnimations = ((xEl) => {
-		xEl.animate(this.animations, this.timing);
+		const anim = xEl.animate(this.animations, this.timing);
+		anim.onfinish = (() => {
+			this.timing = this.opts.timing;
+		});
 	});
 	runSplitAnimations = ((xEl) => {
 		let anim;
@@ -130,7 +136,6 @@ export default class Fx {
 					a.append(SPAN);
 
 					anim = SPAN.animate(this.animations, this.timing);
-					this.timing.delay = this.timing.delay + this.delay;
 				});
 
 				xEl.append(a);
@@ -166,8 +171,8 @@ export default class Fx {
 						});
 					}
 				}
-				this.timing.delay = this.timing.delay + this.delay;
 			}
+			this.timing.delay = this.timing.delay + this.delay;
 		});
 	});
 }
