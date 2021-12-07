@@ -1,6 +1,5 @@
 ---
 import XElement from 'astro-xelement'
-
 const {
 	type = 'span',
 	class: classList = '',
@@ -37,8 +36,8 @@ if ('' !== gradient) {
 	` + styles;
 }
 
-const animate = (target, store) => {
-	const fx = new store.Fx();
+const animate = (target, f) => {
+	const fx = f
 	fx.animateNode(target, {
 		animationString: animations, 
 		timing: timing,
@@ -47,6 +46,9 @@ const animate = (target, store) => {
 		retain: retain
 	});
 }
+// if ('' !== animations && trigger.search('visible') > -1) {
+//			animate(event.target, store);
+//		}
 ---
 
 <XElement @is={type}
@@ -64,14 +66,14 @@ const animate = (target, store) => {
     }
   }
   
-  @visible={(event, store)=> {
-		if ('' !== animations && trigger.search('visible') > -1) {
-			animate(event.target, store);
+  @visible={(event,store)=> {
+	  	 if ('' !== animations && trigger.search('visible') > -1) {
+			animate(event.target,new store.Fx());
 		}
   }}
 	@click={(event, store)=> {
 		if ('' !== animations && trigger.search('click') > -1) {
-			animate(event.target, store);
+			console.log('store from click',store)
 		}
   }}
 	@mouseenter={(event, store)=> {

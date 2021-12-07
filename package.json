@@ -11,7 +11,7 @@
   "devDependencies": {
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@zerodevx/svelte-toast": "^0.6.2",
-    "astro": "latest",
+    "astro": "^0.21.10",
     "svelte-fa": "^2.3.3",
     "tailwindcss": "^2.2.19"
   },
