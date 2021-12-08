@@ -4,6 +4,7 @@ export default class Fx {
 	delay = 0;
 	delayBetweenLetters = 0;
 	clean = true;
+	node;
 	retain = true;
 	isRunning = false;
 	randomColor = (() => {
@@ -29,39 +30,47 @@ export default class Fx {
 	});
 	cleanUp = ((node) => {
 		// retain transform so no cleanup should happen
-		if (this.retain.search('transform') < 0) {
-			if ('false' !== this.retain) {
-				// get values to retain
-				let retainerObj = {};
-				this.retain.split(', ').forEach((retainProp) => {
-					const MATCHES = retainProp.split(/\[(.*?)\]/);
+		if ('false' !== this.retain) {
+			this.retain += ', inline-block';
+			// get values to retain
+			let retainerObj = {};
+			this.retain.split(', ').forEach((retainProp) => {
+				const MATCHES = retainProp.split(/\[(.*?)\]/);
+				if (undefined !== this.animations[MATCHES[0]]) {
 					const RVALUE = this.animations[MATCHES[0]][this.animations[MATCHES[0]].length - 1];
 					retainerObj[MATCHES[0]] = RVALUE;
-				});
-				Object.assign(node.style, retainerObj);
-			}
-
-			let text = '';
-			Array.from(node.childNodes).forEach((child) => {
-				if('A' === child.tagName) {
-					const aSpans = child.querySelectorAll('span');
-					aSpans.forEach((s) => {
-						child.append(s.innerText);
-						s.remove();
-					});
-	
-					text += child.outerHTML;
 				} else {
-					if ('#text' !== child.nodeName) {
-						text += 0 === child.innerText.length ? ' ' : child.innerText;
-						child.remove();
-					} else {
-						text = child.textContent;
+					// check if inline block should be retained
+					if ('inline-block' === MATCHES[0]) {
+						retainerObj = Object.assign(retainerObj, {
+							display: 'inline-block'
+						});
 					}
 				}
 			});
-			node.innerText = text.trim();
+			Object.assign(node.style, retainerObj);
 		}
+
+		let text = '';
+		Array.from(node.childNodes).forEach((child) => {
+			if('A' === child.tagName) {
+				const aSpans = child.querySelectorAll('span');
+				aSpans.forEach((s) => {
+					child.append(s.innerText);
+					s.remove();
+				});
+
+				text += child.outerHTML;
+			} else {
+				if ('#text' !== child.nodeName) {
+					text += 0 === child.innerText.length ? ' ' : child.innerText;
+					child.remove();
+				} else {
+					text = child.textContent;
+				}
+			}
+		});
+		node.innerHTML = text.trim();
 
 		this.isRunning = false;
 	});
@@ -74,6 +83,7 @@ export default class Fx {
 			options.timing.iterations = Infinity;
 		}
 
+		this.node = node;
 		this.delayBetweenLetters = options.delayBetweenLetters;
 		this.timing = options.timing;
 		this.delay = options.timing.delay;
@@ -98,6 +108,7 @@ export default class Fx {
 	});
 	runSplitAnimations = ((xEl) => {
 		let anim;
+		const textInWords = xEl.textContent.split(' ');
 		const ANCHOR = xEl.querySelector('a');
 		if (null !== ANCHOR) {
 			xEl.textContent = xEl.textContent.replace(ANCHOR.innerText, '*');
@@ -107,6 +118,13 @@ export default class Fx {
 		xEl.textContent = '';
 
 		const fontSize = parseFloat(window.getComputedStyle(xEl, null).getPropertyValue('font-size')) || 24
+		const containerWidth = xEl.clientWidth;
+		let currentWordIndex = 0, 
+			currentWord = textInWords[currentWordIndex], 
+			isLastWord = false,
+			nextWord = '', 
+			currentLineLen = 0;
+		console.log(textInWords);
 		animTargets.forEach((item, index) => {
 			let runAnim = true;
 			if ('*' === item) {
@@ -115,6 +133,12 @@ export default class Fx {
 				a.target = ANCHOR.target;
 				a.style.textDecoration = 'none';
 
+				// SPAN BEFORE
+				const SPANBEFORE = document.createElement('span');
+				SPANBEFORE.style.display = 'inline-block';
+				SPANBEFORE.style.width = `${fontSize / 3.65}px`;
+				a.append(SPANBEFORE);
+
 				const ANCHORLETTERS = ANCHOR.innerText.split('');
 				ANCHORLETTERS.forEach((aLetter) => {
 					const SPAN = document.createElement('span');
@@ -122,7 +146,7 @@ export default class Fx {
 					SPAN.style.display = 'inline-block';
 
 					if (' ' === item) {
-						SPAN.style.width = `${fontSize / 4}px`;
+						SPAN.style.width = `${fontSize / 3.65}px`;
 						runAnim = false;
 					}
 					
@@ -151,15 +175,33 @@ export default class Fx {
 					});
 				}
 			} else {
+				// maybe space or control character
+				const isLetter = RegExp(/^\p{L}/,'u').test(item);
+				
+				// console.log(containerWidth)
 				const SPAN = document.createElement('span');
-				SPAN.innerText = item;
 				SPAN.style.display = 'inline-block';
+				SPAN.innerText = item;
 				
 				if (' ' === item) {
-					SPAN.style.width = `${fontSize / 4}px`;
+					SPAN.innerText = '';					
+					SPAN.style.width = `${fontSize / 3.65}px`;
 					runAnim = false;
+					currentWordIndex++;
+					if (undefined !== textInWords[currentWordIndex]) {
+						currentWord = textInWords[currentWordIndex];
+					} else {
+						currentWord = currentWord;
+						isLastWord = true;
+					}
 				}
-
+				
+				// do snake parse
+				if (isLetter || ' ' === item) {
+					const CALCULATED_WIDTH = this.snakeParse(xEl, SPAN.cloneNode(true));
+					currentLineLen += CALCULATED_WIDTH;
+					console.log("LETTER WIDTH", currentLineLen, animTargets[index + 1], currentWord);
+				}
 				xEl.append(SPAN);
 
 				if (true === runAnim) {
@@ -174,11 +216,21 @@ export default class Fx {
                     
 					if (true === this.clean) {
 						anim.onfinish = (() => {
+							anim.pause();
 							this.lastElementCb(xEl, index, animTargets.length);
 						});
 					}
 				}
 			}
 		});
+	});
+	snakeParse = ((xEl, el) => {
+		// append el invisible, measure it's width and remove it right away
+		el.style.visibility = 'hidden';
+		xEl.append(el);
+		let w = el.clientWidth;
+		xEl.removeChild(el);
+		
+		return w;
 	});
 }
