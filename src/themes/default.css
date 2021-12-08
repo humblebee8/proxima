@@ -31,6 +31,9 @@ h5 {
 h6 {
   @apply text-xl;
 }
+p {
+  @apply text-3xl;
+}
 a:not(.mainmenu) {
   @apply text-yellow-600 italic;
 }

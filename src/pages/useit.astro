@@ -1,10 +1,29 @@
 ---
 import Default from "$layouts/Default.astro";
+import X from "$components/x.astro";
+import { Code } from 'astro/components';
 ---
 <Default title="default title" description="default description" bodyClasses="default">
 	<div class="bg-centauri">
 		<div class="p-6">
 			<h1 class="text-center text-4xl uppercase font-bold">GET STARTED</h1>
+			<X 
+				type="p"
+				class="mt-6 text-3xl"
+				iterations="1"
+				duration="600"
+				delayBetween="50"
+				trigger="visibleonce"
+				fullNode="false"
+				retain="transform"
+				easing="cubic-bezier(0.375, 0.8, 0.5, 0.375)"
+				animations="transform: [scale(0), rotate(359deg), scale(0.5), rotate(42deg), scale(1)]"
+			>
+				Getting started is easy. Just install the library and you're ready to use it on your <a href="https://astro.build" target="_blank" title="with astro">astro</a> pages.
+				<!-- THIS WILL CAUSE \n\t\t\t\t which need to be replaced before beeing parsed by animation engine 
+				Getting started is easy. Just install the library and you're ready to use it on your
+				<a href="https://astro.build" target="_blank" title="with astro">astro</a> pages. -->
+			</X>
 		</div>
 	</div>
 </Default>

@@ -9,15 +9,16 @@
 	<div class="h-96 centered">
 		<Stars amount="21" />
 	</div>
-	<div class="block pt-20 text-center font-bold">
+	<div class="block text-center font-bold">
 		<Icon class="mx-auto text-9xl transform rotate-45" name="rocket" />
 		<X
 			type="h1"
 			class="uppercase"
 			iterations="0"
-			duration="8000"
+			duration="3000"
 			fullNode="false"
-			delayBetween="300"
+			delayBetween="600"
+			trigger="visibleonce"
 			animations="color: [#cfb41a, #d86c14, #d81414] | transform: [scale(3) scale(0.3)]"
 		>
 			proxima
@@ -39,11 +40,13 @@
 				delay="2000"
 				fullNode="false"
 				retain="color, transform"
+				trigger="visibleonce"
 				animations="color: [#fff, #cfb41a, #d86c14, #d81414] | transform: [translateY(-9px) scale(2)]"
 			>W</X>
 			elcome to proxima! Proxima is an animation library built with a minimal set of js on top
 			of 
 			<X 
+				class="block"
 				type="span"
 				duration="3000" 
 				iterations="0"
@@ -62,6 +65,7 @@
 				delay="4000"
 				fullNode="false"
 				retain="color, transform"
+				trigger="visibleonce"
 				animations="color: [#fff, #d81414, #d86c14, #cfb41a] | transform: [translateY(-9px) scale(2)]"
 			>A</X>nimations 
 			in web have their limitations or require huge libraries with thousands of js code lines. With a very few lines proxima is different, while not a suite
@@ -72,7 +76,7 @@
 		type="div"
 		class="opacity-0 p-6"
 		iterations="1"
-		duration="3000"
+		duration="2000"
 		trigger="visible"
 		retain="opacity"
 		animations="transform: [translateX(0%)] | opacity: [1]"
@@ -81,53 +85,171 @@
 			type="h2"
 			iterations="1"
 			duration="600"
-			delay="300"
+			delay="2000"
 			trigger="visible"
 			fullNode="true"
 			animations="transform: [translateY(-5px)] | color: [#d81414, #d86c14, #cfb41a, #d86c14] | borderWidth: [0px, 4px, 10px, 9px] | borderColor: [#d81414, #d86c14, #cfb41a, #d86c14] | textTransform: [uppercase] | fontWeight: [bold] | paddingBottom: [10px] | paddingTop: [10px] | paddingLeft: [1px]"
 		>Examples</X>
-		<Code code={`const foo = 'bar';`} lang="js" theme="dark-plus" />
+		<div class="mt-1">
+		<Code code={
+`<X
+	type="h2"
+	iterations="1"
+	duration="600"
+	delay="2000"
+	trigger="visible"
+	fullNode="true"
+	animations="transform: [translateY(-5px)] | color: [#d81414, #d86c14, #cfb41a, #d86c14] | borderWidth: [0px, 4px, 10px, 9px] | borderColor: [#d81414, #d86c14, #cfb41a, #d86c14] | textTransform: [uppercase] | fontWeight: [bold] | paddingBottom: [10px] | paddingTop: [10px] | paddingLeft: [1px]"
+>
+	Examples
+</X>`
+	} lang="js" theme="dark-plus" />
+	</div>
 	</X>
-	<X
+	<div class="p-6 pt-0">
+		<X
+			type="h3"
+			iterations="1"
+			duration="1500"
+			delayBetween="300"
+			trigger="visibleonce"
+			fullNode="false"
+			retain="transform, color, textTransform, fontWeight"
+			animations="transform: [translateX(150vw), translateX(-1vw), rotate(36deg), rotate(-36deg), rotate(0deg)] | color: [randomColor, randomColor, randomColor, randomColor, randomColor, randomColor] | textTransform: [uppercase] | fontWeight: [bold]"
+		>Flying in Text</X>
+	<X 
 		type="div"
-		class="opacity-0 p-6"
-		iterations="1"
-		duration="3000"
-		trigger="visible"
-		retain="opacity"
-		animations="transform: [translateX(0%)] | opacity: [1]"
+		class="mt-1 opacity-0"
+		delay="1000"
+		duration="900"
+		trigger="visibleonce"
+		fullNode="true"
+		animations="opacity: [1]"
 	>
+		<Code code={
+`<X
+	type="h3"
+	iterations="3"
+	duration="1500"
+	delay="900"
+	delayBetween="300"
+	trigger="visibleonce"
+	fullNode="false"
+	retain="transform, color, textTransform, fontWeight"
+	animations="transform: [translateX(150vw), translateX(-1vw), rotate(36deg), rotate(-36deg), rotate(0deg)] | color: [randomColor, randomColor, randomColor, randomColor, randomColor, randomColor] | textTransform: [uppercase] | fontWeight: [bold]"
+>
+Flying in Text
+</X>`
+	} lang="js" theme="dark-plus" />
+</X>
+	</div>
+	<div class="p-6 pt-0">
 		<X
-			type="h2"
+			type="h3"
 			iterations="1"
-			duration="600"
-			delay="300"
-			trigger="visible"
-			fullNode="true"
-			animations="transform: [translateY(-5px)] | color: [#d81414, #d86c14, #cfb41a, #d86c14] | borderWidth: [0px, 4px, 10px, 9px] | borderColor: [#d81414, #d86c14, #cfb41a, #d86c14] | textTransform: [uppercase] | fontWeight: [bold] | paddingBottom: [10px] | paddingTop: [10px] | paddingLeft: [1px]"
-		>Examples</X>
-		<Code code={`const foo = 'bar';`} lang="js" theme="dark-plus" />
-	</X>
-	<X
+			duration="2000"
+			delayBetween="300"
+			trigger="visible, click"
+			fullNode="false"
+			retain="transform, color"
+			animations="transform: [translateX(150vw), translateX(50vw), translateY(30%), translateY(-30%), translateX(20vw), translateY(90%), translateY(-90%), translateX(0vw)] | color: [randomColor, randomColor, randomColor, randomColor, randomColor, randomColor]"
+		>Flying in Text, click to play again.</X>
+	<X 
 		type="div"
-		class="opacity-0 p-6"
-		iterations="1"
-		duration="3000"
-		trigger="visible"
-		retain="opacity"
-		animations="transform: [translateX(0%)] | opacity: [1]"
+		class="mt-1 opacity-0"
+		delay="1000"
+		duration="900"
+		trigger="visibleonce"
+		fullNode="true"
+		animations="opacity: [1]"
 	>
+		<Code code={
+`<X
+	type="h3"
+	iterations="1"
+	duration="2000"
+	delayBetween="300"
+	trigger="visible, click"
+	fullNode="false"
+	retain="transform, color"
+	animations="transform: [translateX(150vw), translateX(50vw), translateY(30%), translateY(-30%), translateX(20vw), translateY(90%), translateY(-90%), translateX(0vw)] | color: [randomColor, randomColor, randomColor, randomColor, randomColor, randomColor]"
+>
+Flying in Text
+</X>`
+	} lang="js" theme="dark-plus" />
+</X>
+	</div>
+	<div class="p-6 pt-0">
 		<X
-			type="h2"
+			type="p"
+			iterations="1"
+			duration="300"
+			delayBetween="50"
+			trigger="visibleonce, click"
+			fullNode="false"
+			retain="transform, color"
+			animations="transform: [scaleY(0), scaleY(2), scaleY(1)] | color: [red, yellow, orange]"
+		>Long paragraph text showing up with scaleY and changing color to orange</X>
+	<X 
+		type="div"
+		class="mt-1 opacity-0"
+		delay="1000"
+		duration="900"
+		trigger="visibleonce"
+		fullNode="true"
+		animations="opacity: [1]"
+	>
+		<Code code={
+`<X
+	type="p"
+	iterations="1"
+	duration="300"
+	delayBetween="50"
+	trigger="visibleonce, click"
+	fullNode="false"
+	retain="transform, color"
+	animations="transform: [scaleY(0), scaleY(2), scaleY(1)] | color: [red, yellow, orange]"
+>
+Long paragraph text showing up with scaleY and changing color to orange
+</X>`
+	} lang="js" theme="dark-plus" />
+</X>
+	</div>
+	<div class="p-6 pt-0">
+		<X
+			type="p"
 			iterations="1"
 			duration="600"
-			delay="300"
-			trigger="visible"
-			fullNode="true"
-			animations="transform: [translateY(-5px)] | color: [#d81414, #d86c14, #cfb41a, #d86c14] | borderWidth: [0px, 4px, 10px, 9px] | borderColor: [#d81414, #d86c14, #cfb41a, #d86c14] | textTransform: [uppercase] | fontWeight: [bold] | paddingBottom: [10px] | paddingTop: [10px] | paddingLeft: [1px]"
-		>Examples</X>
-		<Code code={`const foo = 'bar';`} lang="js" theme="dark-plus" />
-	</X>
+			delayBetween="50"
+			trigger="visibleonce, click"
+			fullNode="false"
+			retain="transform, color"
+			animations="transform: [scaleX(0), scaleX(2), scaleX(1)] | color: [red, randomColor, yellow, randomColor, orange]"
+		>Long paragraph text showing up with scaleY and changing color to orange with 2 random colors in between.</X>
+	<X 
+		type="div"
+		class="mt-1 opacity-0"
+		delay="1000"
+		duration="900"
+		trigger="visibleonce"
+		fullNode="true"
+		animations="opacity: [1]"
+	>
+		<Code code={
+`<X
+	type="p"
+	iterations="1"
+	duration="600"
+	delayBetween="50"
+	trigger="visibleonce, click"
+	fullNode="false"
+	retain="transform, color"
+	animations="transform: [scaleX(0), scaleX(2), scaleX(1)] | color: [red, randomColor, yellow, randomColor, orange]"
+>Long paragraph text showing up with scaleY and changing color to orange with 2 random colors in between.
+</X>`
+	} lang="js" theme="dark-plus" />
+</X>
+	</div>
 </Default>
 
 <svg style="width:0;height:0;position:absolute;" aria-hidden="true" focusable="false">
