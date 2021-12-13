@@ -1,10 +1,11 @@
 export default class Fx {
 	animations;
+	node;
 	timing;
 	delay = 0;
 	delayBetweenLetters = 0;
 	clean = true;
-	node;
+	currentLineLen = 0;
 	retain = true;
 	isRunning = false;
 	randomColor = (() => {
@@ -108,23 +109,46 @@ export default class Fx {
 	});
 	runSplitAnimations = ((xEl) => {
 		let anim;
-		const textInWords = xEl.textContent.split(' ');
 		const ANCHOR = xEl.querySelector('a');
 		if (null !== ANCHOR) {
 			xEl.textContent = xEl.textContent.replace(ANCHOR.innerText, '*');
 		}
 
+		// remove empty && \n
+		xEl.textContent = xEl.textContent.trim();
+		const textInWords = xEl.textContent.split(' ');
 		const animTargets = xEl.textContent.split('');
+
 		xEl.textContent = '';
 
 		const fontSize = parseFloat(window.getComputedStyle(xEl, null).getPropertyValue('font-size')) || 24
 		const containerWidth = xEl.clientWidth;
 		let currentWordIndex = 0, 
-			currentWord = textInWords[currentWordIndex], 
-			isLastWord = false,
-			nextWord = '', 
-			currentLineLen = 0;
-		console.log(textInWords);
+			wordsLength = [],
+			words = [];
+		
+		textInWords.map((word, index) => {
+			const SHADOW_SPAN = document.createElement('span');
+			SHADOW_SPAN.style.display = 'inline-block';
+			SHADOW_SPAN.innerText = word;
+			wordsLength[index] = this.shadowCalc(xEl, SHADOW_SPAN);
+			words[index] = word;
+		});
+
+		let currentLineNum = 0;
+		textInWords.map((word, index) => {
+			this.currentLineLen += wordsLength[index] + fontSize / 3.65;
+			if (this.currentLineLen + wordsLength[index + 1] > containerWidth) {
+				words.splice(index + currentLineNum + 1, 0, '<br>');
+				this.currentLineLen = 0;
+				currentLineNum++;
+			}
+		});
+
+		// reset line counter
+		currentLineNum = 0;
+
+		// line calc
 		animTargets.forEach((item, index) => {
 			let runAnim = true;
 			if ('*' === item) {
@@ -132,12 +156,6 @@ export default class Fx {
 				a.href = ANCHOR.href;
 				a.target = ANCHOR.target;
 				a.style.textDecoration = 'none';
-
-				// SPAN BEFORE
-				const SPANBEFORE = document.createElement('span');
-				SPANBEFORE.style.display = 'inline-block';
-				SPANBEFORE.style.width = `${fontSize / 3.65}px`;
-				a.append(SPANBEFORE);
 
 				const ANCHORLETTERS = ANCHOR.innerText.split('');
 				ANCHORLETTERS.forEach((aLetter) => {
@@ -174,35 +192,30 @@ export default class Fx {
 						this.lastElementCb(e.target, index, animTargets.length);
 					});
 				}
-			} else {
-				// maybe space or control character
-				const isLetter = RegExp(/^\p{L}/,'u').test(item);
-				
-				// console.log(containerWidth)
+			} else {				
+				let appendWhiteSpace = true;
 				const SPAN = document.createElement('span');
 				SPAN.style.display = 'inline-block';
-				SPAN.innerText = item;
-				
+				SPAN.innerText = item;		
+
+				// move to next word if a space is found
 				if (' ' === item) {
 					SPAN.innerText = '';					
 					SPAN.style.width = `${fontSize / 3.65}px`;
 					runAnim = false;
-					currentWordIndex++;
-					if (undefined !== textInWords[currentWordIndex]) {
-						currentWord = textInWords[currentWordIndex];
-					} else {
-						currentWord = currentWord;
-						isLastWord = true;
+					
+					if ('<br>' === words[currentWordIndex + currentLineNum + 1]) {
+						const BR = document.createElement('br');
+						xEl.append(BR);
+						currentLineNum++;
+						appendWhiteSpace = false;
 					}
+					currentWordIndex++;
 				}
-				
-				// do snake parse
-				if (isLetter || ' ' === item) {
-					const CALCULATED_WIDTH = this.snakeParse(xEl, SPAN.cloneNode(true));
-					currentLineLen += CALCULATED_WIDTH;
-					console.log("LETTER WIDTH", currentLineLen, animTargets[index + 1], currentWord);
+
+				if (appendWhiteSpace) {
+					xEl.append(SPAN);
 				}
-				xEl.append(SPAN);
 
 				if (true === runAnim) {
 					anim = SPAN.animate(this.animations, {
@@ -216,7 +229,6 @@ export default class Fx {
                     
 					if (true === this.clean) {
 						anim.onfinish = (() => {
-							anim.pause();
 							this.lastElementCb(xEl, index, animTargets.length);
 						});
 					}
@@ -224,11 +236,11 @@ export default class Fx {
 			}
 		});
 	});
-	snakeParse = ((xEl, el) => {
+	shadowCalc = ((xEl, el) => {
 		// append el invisible, measure it's width and remove it right away
 		el.style.visibility = 'hidden';
 		xEl.append(el);
-		let w = el.clientWidth;
+		const w = el.clientWidth;
 		xEl.removeChild(el);
 		
 		return w;
