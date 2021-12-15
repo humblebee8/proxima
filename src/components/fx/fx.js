@@ -27,7 +27,9 @@ export default class Fx {
 							return val.replace('randomColor', this.randomColor())
 						});
 					return accumulator;
-				}, {});
+				}, 
+			{}
+		);
 	});
 	cleanUp = ((node) => {
 		// retain transform so no cleanup should happen
