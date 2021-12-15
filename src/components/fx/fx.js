@@ -108,10 +108,12 @@ export default class Fx {
 		xEl.animate(this.animations, this.timing);
 	});
 	runSplitAnimations = ((xEl) => {
-		let anim;
-		const ANCHOR = xEl.querySelector('a');
-		if (null !== ANCHOR) {
-			xEl.textContent = xEl.textContent.replace(ANCHOR.innerText, '*');
+		let anim, currentAnchor = 0;
+		const ANCHORS = xEl.querySelectorAll('a');
+		if (null !== ANCHORS && ANCHORS.length > 0) {
+			Array.from(ANCHORS).forEach((ANCHOR) => {
+				xEl.textContent = xEl.textContent.replace(ANCHOR.innerText, '*');
+			});
 		}
 
 		// remove empty && \n
@@ -130,7 +132,15 @@ export default class Fx {
 		textInWords.map((word, index) => {
 			const SHADOW_SPAN = document.createElement('span');
 			SHADOW_SPAN.style.display = 'inline-block';
-			SHADOW_SPAN.innerText = word;
+			
+			// set proper anchor text to shadow span so width gets calculated correctly
+			if ('*' === word) {
+				SHADOW_SPAN.innerText = ANCHORS[currentAnchor].innerText;
+				currentAnchor++;
+			} else {
+				SHADOW_SPAN.innerText = word;
+			}
+
 			wordsLength[index] = this.shadowCalc(xEl, SHADOW_SPAN);
 			words[index] = word;
 		});
@@ -145,20 +155,18 @@ export default class Fx {
 			}
 		});
 
-		// reset line counter
-		currentLineNum = 0;
+		// reset line counter and anchor
+		currentLineNum = 0, currentAnchor = 0;
 
-		// line calc
 		animTargets.forEach((item, index) => {
 			let runAnim = true;
 			if ('*' === item) {
 				let a = document.createElement('a');
-				a.href = ANCHOR.href;
-				a.target = ANCHOR.target;
-				a.style.textDecoration = 'none';
+				a.href = ANCHORS[currentAnchor].href;
+				a.target = ANCHORS[currentAnchor].target;
 
-				const ANCHORLETTERS = ANCHOR.innerText.split('');
-				ANCHORLETTERS.forEach((aLetter) => {
+				const ANCHORLETTERS = ANCHORS[currentAnchor].innerText.split('');
+				ANCHORLETTERS.forEach((aLetter, letterIndex) => {
 					const SPAN = document.createElement('span');
 					SPAN.innerText = aLetter;
 					SPAN.style.display = 'inline-block';
@@ -176,11 +184,13 @@ export default class Fx {
 						fill: this.timing.fill,
 						direction: this.timing.direction,
 						iterations: this.timing.iterations,
-						delay: this.timing.delay + this.delayBetweenLetters * (index + 1)
+						delay: this.timing.delay + this.delayBetweenLetters * (index + letterIndex + 1)
 					});
 				});
 
 				xEl.append(a);
+				currentAnchor++;
+
 				return;
 			}
 
@@ -212,6 +222,8 @@ export default class Fx {
 					}
 					currentWordIndex++;
 				}
+
+				// TODO: check if word will fit and if not insert break
 
 				if (appendWhiteSpace) {
 					xEl.append(SPAN);

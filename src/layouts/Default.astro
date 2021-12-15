@@ -42,7 +42,7 @@
     <header class="fixed w-full z-50">
       <slot name="contentheader">
         <div class="min-h-16 h-16 bg-astro opacity-80">
-          <Mainmenu menuItems={menuItems && menuItems.length && menuItems.length > 0 ? menuItems : defaultMenuItems} client:load></Mainmenu>
+          <Mainmenu menuItems={menuItems && menuItems.length && menuItems.length > 0 ? menuItems : defaultMenuItems} client:only></Mainmenu>
         </div>
       </slot>
       <Fx/>
