@@ -34,7 +34,7 @@ export default class Fx {
 	cleanUp = ((node) => {
 		// retain transform so no cleanup should happen
 		if ('false' !== this.retain) {
-			this.retain += ', inline-block';
+			// this.retain += ', inline-block';
 			// get values to retain
 			let retainerObj = {};
 			this.retain.split(', ').forEach((retainProp) => {
@@ -42,14 +42,14 @@ export default class Fx {
 				if (undefined !== this.animations[MATCHES[0]]) {
 					const RVALUE = this.animations[MATCHES[0]][this.animations[MATCHES[0]].length - 1];
 					retainerObj[MATCHES[0]] = RVALUE;
-				} else {
+				} // else {
 					// check if inline block should be retained
-					if ('inline-block' === MATCHES[0]) {
-						retainerObj = Object.assign(retainerObj, {
-							display: 'inline-block'
-						});
-					}
-				}
+					// if ('inline-block' === MATCHES[0]) {
+					// 	retainerObj = Object.assign(retainerObj, {
+					// 		display: 'inline-block'
+					// 	});
+					// }
+				// }
 			});
 			Object.assign(node.style, retainerObj);
 		}
@@ -93,6 +93,7 @@ export default class Fx {
 		this.clean = options.clean;
 		this.retain = options.retain;
 		this.animations = this.getAnimations(options.animationString);
+		
 		if (true === options.split) {
 			this.runSplitAnimations(node);
 		} else {
@@ -117,13 +118,14 @@ export default class Fx {
 				xEl.textContent = xEl.textContent.replace(ANCHOR.innerText, '*');
 			});
 		}
-
+		
 		// remove empty && \n
 		xEl.textContent = xEl.textContent.trim();
 		const textInWords = xEl.textContent.split(' ');
 		const animTargets = xEl.textContent.split('');
 
 		xEl.textContent = '';
+
 
 		const fontSize = parseFloat(window.getComputedStyle(xEl, null).getPropertyValue('font-size')) || 24
 		const containerWidth = xEl.clientWidth;
@@ -146,7 +148,7 @@ export default class Fx {
 			wordsLength[index] = this.shadowCalc(xEl, SHADOW_SPAN);
 			words[index] = word;
 		});
-
+		
 		let currentLineNum = 0;
 		textInWords.map((word, index) => {
 			this.currentLineLen += wordsLength[index] + fontSize / 3.65;
@@ -225,8 +227,6 @@ export default class Fx {
 					currentWordIndex++;
 				}
 
-				// TODO: check if word will fit and if not insert break
-
 				if (appendWhiteSpace) {
 					xEl.append(SPAN);
 				}
@@ -243,6 +243,7 @@ export default class Fx {
                     
 					if (true === this.clean) {
 						anim.onfinish = (() => {
+							// anim.pause();
 							this.lastElementCb(xEl, index, animTargets.length);
 						});
 					}
