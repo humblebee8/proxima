@@ -19,9 +19,85 @@ import { Code } from 'astro/components';
 				easing="cubic-bezier(0.375, 0.8, 0.5, 0.375)"
 				animations="transform: [scale(0), rotate(359deg), scale(0.5), rotate(42deg), scale(1)]"
 			>
-                Getting started is easy. Just install the library and you're ready to use it on your <a href="https://astro.build" target="_blank" title="with astro">astro</a> pages.
+				Getting started is easy. Just install the library and you're ready to use it on your <a href="https://astro.build" target="_blank" title="with astro">astro</a> pages.
 			</X>
 		</div>
+	</div>
+	<div class="p-6">
+		<X 
+			type="h2"
+			class="mt-6 text-center uppercase font-bold"
+			iterations="5"
+			duration="1000"
+			delayBetween="0"
+			trigger="visibleonce"
+			fullNode="false"
+			retain="color"
+			easing="linear"
+			animations="transform: [rotate(360deg), rotate(720deg), rotate(1080deg), rotate(1440deg), rotate(1800deg)] | color: [randomColor, randomColor, randomColor, randomColor, randomColor, randomColor, orange]"
+		>
+			animate everything with ease
+		</X>
+	</div>
+	<div class="p-6 pt-0">
+		<X 
+			type="p"
+			class="mt-6 text-xl text-center uppercase font-bold"
+			iterations="0"
+			duration="6000"
+			delayBetween="50"
+			trigger="visibleonce"
+			fullNode="false"
+			easing="linear"
+			animations="color: [randomColor, randomColor, randomColor, randomColor, randomColor, randomColor, randomColor]"
+		>
+			everything that is a css property and supported by web animation api can be animated.
+		</X>
+	</div>
+	<div class="p-6 text-center">
+		<h3 class="text-yellow-600 underline">Create a simple loading 
+		<X 
+			type="span"
+			class="uppercase font-bold relative -mr-2"
+			iterations="0"
+			duration="9000"
+			trigger="visibleonce"
+			fullNode="false"
+			easing="linear"
+			direction="normal"
+			animations="transform: [rotate(360deg)]"
+		>s
+		</X>
+		pinner</h3>
+	</div>
+	<div class="p-6 w-40 mx-auto">
+		<X 
+			type="div"
+			class="loader"
+			iterations="0"
+			duration="6000"
+			trigger="visibleonce"
+			fullNode="true"
+			easing="linear"
+			direction="normal"
+			animations="transform: [rotate(360deg)]"
+		>
+		</X>
+	</div>
+	<div class="p-6 pt-0">
+		<X 
+			type="p"
+			class=""
+			iterations="1"
+			duration="900"
+			trigger="visible"
+			fullNode="true"
+			easing="linear"
+			direction="alternate-reverse"
+			animations="opacity: [0] | transform: [translateY(50%)]"
+		>
+			You can use a selection of triggers and any web animation api property.
+		</X>
 	</div>
 </Default>
 
@@ -29,4 +105,13 @@ import { Code } from 'astro/components';
   body {
     @apply bg-astro text-gray-300;
   }
+	.loader {
+		border-top: 16px solid yellowgreen;
+		border-right: 16px solid green;
+		border-bottom: 16px solid yellow;
+		border-left: 16px solid orange;
+		border-radius: 50%;
+		width: 120px;
+		height: 120px;
+	}
 </style>
