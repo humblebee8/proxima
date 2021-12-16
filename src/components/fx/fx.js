@@ -7,7 +7,6 @@ export default class Fx {
 	clean = true;
 	currentLineLen = 0;
 	retain = true;
-	isRunning = false;
 	randomColor = (() => {
 		return "#xxxxxx".replace(/x/g, y=>(Math.random()*16|0).toString(16));
 	});
@@ -74,14 +73,8 @@ export default class Fx {
 			}
 		});
 		node.innerHTML = text.trim();
-
-		this.isRunning = false;
 	});
 	animateNode = ((node, options) => {
-		if (true === this.isRunning) {
-			return;
-		}
-
 		if (options.timing.iterations < 1) {
 			options.timing.iterations = Infinity;
 		}
@@ -99,16 +92,18 @@ export default class Fx {
 		} else {
 			this.runFullAnimations(node);
 		}
-
-		this.isRunning = true;
 	});
 	lastElementCb = ((node, current, last) => {
 		if (current === last - 1) {
 			this.cleanUp(node);
+			node.isAnimating = false;
 		}
 	});
 	runFullAnimations = ((xEl) => {
-		xEl.animate(this.animations, this.timing);
+		const anim = xEl.animate(this.animations, this.timing);
+		anim.onfinish = ((e) => {
+			xEl.isAnimating = false;
+		});
 	});
 	runSplitAnimations = ((xEl) => {
 		let anim, currentAnchor = 0;
