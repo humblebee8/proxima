@@ -1,7 +1,7 @@
 ---
 import Default from "$layouts/Default.astro";
 import X from "$components/x.astro";
-import { Code } from 'astro/components';
+import { Icon } from 'astro-icon';
 ---
 <Default title="default title" description="default description" bodyClasses="default">
 	<div class="bg-centauri">
@@ -90,6 +90,7 @@ import { Code } from 'astro/components';
 			class=""
 			iterations="1"
 			duration="900"
+			delay="300	"
 			trigger="visible"
 			fullNode="true"
 			easing="linear"
@@ -97,6 +98,38 @@ import { Code } from 'astro/components';
 			animations="opacity: [0] | transform: [translateY(50%)]"
 		>
 			You can use a selection of triggers and any web animation api property.
+		</X>
+	</div>
+	<div class="p-6 pt-0">
+		<X 
+			type="p"
+			class="text-9xl font-bold text-center"
+			style="text-shadow: 1px 1px 1px #919191, 1px 2px 1px #919191, 1px 3px 1px #919191, 1px 4px 1px #919191, 1px 5px 1px #919191, 1px 6px 1px #919191, 1px 7px 1px #919191, 1px 8px 1px #919191, 1px 9px 1px #919191, 1px 10px 1px #919191, 1px 18px 6px rgba(16,16,16,0.4), 1px 22px 10px rgba(16,16,16,0.2), 1px 25px 35px rgba(16,16,16,0.2), 1px 30px 60px rgba(16,16,16,0.4);"
+			iterations="0"
+			duration="9000"
+			trigger="visibleonce"
+			fullNode="true"
+			easing="linear"
+			direction="alternate-reverse"
+			animations="transform: [rotateY(359deg)] | color: [orange, yellow, red, orange]"
+		>
+			3D
+		</X>
+	</div>
+	<div class="p-6">
+		<p class="mt-6 mb-12 text-center">Star on Github</p>
+		<X 
+			type="p"
+			class="my-6"
+			iterations="0"
+			duration="600"
+			trigger="visibleonce"
+			fullNode="true"
+			easing="linear"
+			direction="alternate-reverse"
+			animations="transform: [translateY(10%), translateY(-10%)]"
+		>
+			<Icon class="mx-auto text-6xl" name="arrow-down" />
 		</X>
 	</div>
 </Default>

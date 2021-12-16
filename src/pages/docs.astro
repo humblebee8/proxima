@@ -1,11 +1,610 @@
 ---
 import Default from "$layouts/Default.astro";
+import X from "$components/x.astro";
 ---
 <Default title="default title" description="default description" bodyClasses="default">
 	<div class="bg-centauri">
 		<div class="p-6">
 			<h1 class="text-center text-4xl uppercase font-bold">Documentation</h1>
+			<X 
+				type="p"
+				class="mt-6 text-3xl"
+				iterations="1"
+				duration="900"
+				delayBetween="30"
+				trigger="visibleonce"
+				fullNode="false"
+				retain="transform"
+				easing="cubic-bezier(0.375, 0.8, 0.5, 0.375)"
+				animations="transform: [scale(0), rotate(359deg), scale(0.5), rotate(42deg), scale(1)]"
+			>
+				Below you will find all attributes you can use to control the animations.
+			</X>
 		</div>
+	</div>
+	<div class="p-6">
+		<X 
+			type="h3"
+			class="underline"
+			iterations="1"
+			duration="600"
+			delayBetween="50"
+			delay="2500"
+			trigger="visible"
+			fullNode="false"
+			retain="color"
+			easing="cubic-bezier(0.375, 0.8, 0.5, 0.375)"
+			animations="transform: [scaleX(0), scaleX(2), scaleX(1)] | color: [red, randomColor, yellow, randomColor, orange]"
+		>
+			X-Element
+		</X>
+		<X 
+			type="div"
+			class="mt-3 text-yellow-500"
+			iterations="1"
+			duration="900"
+			delay="300"
+			delay="2700"
+			trigger="visible"
+			fullNode="true"
+			easing="linear"
+			direction="alternate-reverse"
+			animations="opacity: [0] | transform: [translateX(-70%)]"
+		>
+			<X 
+				type="p"
+				class="mt-3 text-yellow-500 text-2xl"
+			>
+				fx is built on top of X-Element using &lt;X&gt;Your Content&lt;/X&gt; you can add animated web components.
+			</X>
+		</X>
+	</div>
+	<div class="p-6 pt-0">
+		<X 
+			type="h3"
+			class="underline"
+			iterations="1"
+			duration="600"
+			delayBetween="50"
+			delay="2500"
+			trigger="visible"
+			fullNode="false"
+			retain="color"
+			easing="cubic-bezier(0.375, 0.8, 0.5, 0.375)"
+			animations="transform: [scaleX(0), scaleX(2), scaleX(1)] | color: [red, randomColor, yellow, randomColor, orange]"
+		>
+			type
+		</X>
+		<X 
+			type="div"
+			class="mt-3 text-yellow-500"
+			iterations="1"
+			duration="900"
+			delay="300"
+			delay="2700"
+			trigger="visible"
+			fullNode="true"
+			easing="linear"
+			direction="alternate-reverse"
+			animations="opacity: [0] | transform: [translateX(-70%)]"
+		>
+			<X 
+				type="p"
+				class="mt-3 text-yellow-500 text-2xl"
+			>
+				Represents the type of tag you want to render, p, span, a, div, h1-h6, img etc...
+				use with type="h2"
+				<strong class="block mt-3 text-green-500">Default: span </strong>
+			</X>
+		</X>
+	</div>
+	<div class="p-6 pt-0">
+		<X 
+			type="h3"
+			class="underline"
+			iterations="1"
+			duration="600"
+			delayBetween="50"
+			delay="300"
+			trigger="visible"
+			fullNode="false"
+			retain="color"
+			easing="cubic-bezier(0.375, 0.8, 0.5, 0.375)"
+			animations="transform: [scaleX(0), scaleX(2), scaleX(1)] | color: [red, randomColor, yellow, randomColor, orange]"
+		>
+			easing
+		</X>
+		<X 
+			type="div"
+			class="mt-3 text-yellow-500"
+			iterations="1"
+			duration="900"
+			delay="300"
+			trigger="visible"
+			fullNode="true"
+			easing="linear"
+			direction="alternate-reverse"
+			animations="opacity: [0] | transform: [translateX(-70%)]"
+		>
+			<X 
+				type="p"
+				class="mt-3 text-yellow-500 text-2xl"
+			>
+				Add an easing function to your animation, linear, ease-in-out, cubic-bezier and more.
+				<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function" target="_blank" title="mdn easing functions">Learn more.</a>
+				<strong class="block mt-3 text-green-500">Default: linear </strong>
+			</X>
+		</X>
+	</div>
+	<div class="p-6 pt-0">
+		<X 
+			type="h3"
+			class="underline"
+			iterations="1"
+			duration="600"
+			delayBetween="50"
+			delay="300"
+			trigger="visible"
+			fullNode="false"
+			retain="color"
+			easing="cubic-bezier(0.375, 0.8, 0.5, 0.375)"
+			animations="transform: [scaleX(0), scaleX(2), scaleX(1)] | color: [red, randomColor, yellow, randomColor, orange]"
+		>
+			duration
+		</X>
+		<X 
+			type="div"
+			class="mt-3 text-yellow-500"
+			iterations="1"
+			duration="900"
+			delay="300"
+			trigger="visible"
+			fullNode="true"
+			easing="linear"
+			direction="alternate-reverse"
+			animations="opacity: [0] | transform: [translateX(-70%)]"
+		>
+			<X 
+				type="p"
+				class="mt-3 text-yellow-500 text-2xl"
+			>
+				The duration of the animation in milliseconds (ms) 
+				<strong class="block mt-3 text-green-500">Default: 1500</strong>
+			</X>
+		</X>
+	</div>
+	<div class="p-6 pt-0">
+		<X 
+			type="h3"
+			class="underline"
+			iterations="1"
+			duration="600"
+			delayBetween="50"
+			delay="300"
+			trigger="visible"
+			fullNode="false"
+			retain="color"
+			easing="cubic-bezier(0.375, 0.8, 0.5, 0.375)"
+			animations="transform: [scaleX(0), scaleX(2), scaleX(1)] | color: [red, randomColor, yellow, randomColor, orange]"
+		>
+			fill
+		</X>
+		<X 
+			type="div"
+			class="mt-3 text-yellow-500"
+			iterations="1"
+			duration="900"
+			delay="300"
+			trigger="visible"
+			fullNode="true"
+			easing="linear"
+			direction="alternate-reverse"
+			animations="opacity: [0] | transform: [translateX(-70%)]"
+		>
+			<X 
+				type="p"
+				class="mt-3 text-yellow-500 text-2xl"
+			>
+				Control the animation fill mode to control css properties before and after the animation.
+				<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-fill-mode" target="_blank" title="mdn fill mode">Learn more.</a>
+				<strong class="block mt-3 text-green-500">Default: both</strong>
+			</X>
+		</X>
+	</div>
+	<div class="p-6 pt-0">
+		<X 
+			type="h3"
+			class="underline"
+			iterations="1"
+			duration="600"
+			delayBetween="50"
+			delay="300"
+			trigger="visible"
+			fullNode="false"
+			retain="color"
+			easing="cubic-bezier(0.375, 0.8, 0.5, 0.375)"
+			animations="transform: [scaleX(0), scaleX(2), scaleX(1)] | color: [red, randomColor, yellow, randomColor, orange]"
+		>
+			gradient
+		</X>
+		<X 
+			type="div"
+			class="mt-3 text-yellow-500"
+			iterations="1"
+			duration="900"
+			delay="300"
+			trigger="visible"
+			fullNode="true"
+			easing="linear"
+			direction="alternate-reverse"
+			animations="opacity: [0] | transform: [translateX(-70%)]"
+		>
+			<X 
+				type="p"
+				class="mt-3 text-yellow-500 text-2xl"
+			>
+				Apply a linear gradient to the node. For example:
+			</X> 
+				<X 
+					type="p"
+					class="mt-3 text-yellow-500 text-2xl"
+					gradient="to right, red, green, yellow"
+				>"to right, red, green, yellow"
+				</X>
+			<X 
+				type="p"
+				class="mt-3 text-yellow-500 text-2xl"
+			>
+				params will be passed to the linear-gradient function
+				<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient()" target="_blank" title="mdn linear gradient">Learn more.</a>
+				<strong class="block mt-3 text-green-500">Default: ''</strong>
+			</X>
+		</X>
+	</div>
+	<div class="p-6 pt-0">
+		<X 
+			type="h3"
+			class="underline"
+			iterations="1"
+			duration="600"
+			delayBetween="50"
+			delay="300"
+			trigger="visible"
+			fullNode="false"
+			retain="color"
+			easing="cubic-bezier(0.375, 0.8, 0.5, 0.375)"
+			animations="transform: [scaleX(0), scaleX(2), scaleX(1)] | color: [red, randomColor, yellow, randomColor, orange]"
+		>
+			direction
+		</X>
+		<X 
+			type="div"
+			class="mt-3 text-yellow-500"
+			iterations="1"
+			duration="900"
+			delay="300"
+			trigger="visible"
+			fullNode="true"
+			easing="linear"
+			direction="alternate-reverse"
+			animations="opacity: [0] | transform: [translateX(-70%)]"
+		>
+			<X 
+				type="p"
+				class="mt-3 text-yellow-500 text-2xl"
+			>
+				The direction of the animation. Used to play backwards (flip the animation cycle)
+				<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-direction" target="_blank" title="mdn animation direction">Learn more.</a>
+				<strong class="block mt-3 text-green-500">Default: normal</strong>
+			</X>
+		</X>
+	</div>
+	<div class="p-6 pt-0">
+		<X 
+			type="h3"
+			class="underline"
+			iterations="1"
+			duration="600"
+			delayBetween="50"
+			delay="300"
+			trigger="visible"
+			fullNode="false"
+			retain="color"
+			easing="cubic-bezier(0.375, 0.8, 0.5, 0.375)"
+			animations="transform: [scaleX(0), scaleX(2), scaleX(1)] | color: [red, randomColor, yellow, randomColor, orange]"
+		>
+			iterations
+		</X>
+		<X 
+			type="div"
+			class="mt-3 text-yellow-500"
+			iterations="1"
+			duration="900"
+			delay="300"
+			trigger="visible"
+			fullNode="true"
+			easing="linear"
+			direction="alternate-reverse"
+			animations="opacity: [0] | transform: [translateX(-70%)]"
+		>
+			<X 
+				type="p"
+				class="mt-3 text-yellow-500 text-2xl"
+			>
+				The number of times an animation should run. Use 0 to run infinite.
+				<strong class="block mt-3 text-green-500">Default: 1</strong>
+			</X>
+		</X>
+	</div>
+	<div class="p-6 pt-0">
+		<X 
+			type="h3"
+			class="underline"
+			iterations="1"
+			duration="600"
+			delayBetween="50"
+			delay="300"
+			trigger="visible"
+			fullNode="false"
+			retain="color"
+			easing="cubic-bezier(0.375, 0.8, 0.5, 0.375)"
+			animations="transform: [scaleX(0), scaleX(2), scaleX(1)] | color: [red, randomColor, yellow, randomColor, orange]"
+		>
+			delay
+		</X>
+		<X 
+			type="div"
+			class="mt-3 text-yellow-500"
+			iterations="1"
+			duration="900"
+			delay="300"
+			trigger="visible"
+			fullNode="true"
+			easing="linear"
+			direction="alternate-reverse"
+			animations="opacity: [0] | transform: [translateX(-70%)]"
+		>
+			<X 
+				type="p"
+				class="mt-3 text-yellow-500 text-2xl"
+			>
+				The delay before an animation starts playing.
+				<strong class="block mt-3 text-green-500">Default: 0</strong>
+			</X>
+		</X>
+	</div>
+	<div class="p-6 pt-0">
+		<X 
+			type="h3"
+			class="underline"
+			iterations="1"
+			duration="600"
+			delayBetween="50"
+			delay="300"
+			trigger="visible"
+			fullNode="false"
+			retain="color"
+			easing="cubic-bezier(0.375, 0.8, 0.5, 0.375)"
+			animations="transform: [scaleX(0), scaleX(2), scaleX(1)] | color: [red, randomColor, yellow, randomColor, orange]"
+		>
+			fullNode
+		</X>
+		<X 
+			type="div"
+			class="mt-3 text-yellow-500"
+			iterations="1"
+			duration="900"
+			delay="300"
+			trigger="visible"
+			fullNode="true"
+			easing="linear"
+			direction="alternate-reverse"
+			animations="opacity: [0] | transform: [translateX(-70%)]"
+		>
+			<X 
+				type="p"
+				class="mt-3 text-yellow-500 text-2xl"
+			>
+				Wether to animate the entire node or it's single parts (letters). Does only work on nodes with text content.
+				<strong class="block mt-3 text-green-500">Default: "true"</strong>
+			</X>
+		</X>
+	</div>
+	<div class="p-6 pt-0">
+		<X 
+			type="h3"
+			class="underline"
+			iterations="1"
+			duration="600"
+			delayBetween="50"
+			delay="300"
+			trigger="visible"
+			fullNode="false"
+			retain="color"
+			easing="cubic-bezier(0.375, 0.8, 0.5, 0.375)"
+			animations="transform: [scaleX(0), scaleX(2), scaleX(1)] | color: [red, randomColor, yellow, randomColor, orange]"
+		>
+			delayBetween
+		</X>
+		<X 
+			type="div"
+			class="mt-3 text-yellow-500"
+			iterations="1"
+			duration="900"
+			delay="300"
+			trigger="visible"
+			fullNode="true"
+			easing="linear"
+			direction="alternate-reverse"
+			animations="opacity: [0] | transform: [translateX(-70%)]"
+		>
+			<X 
+				type="p"
+				class="mt-3 text-yellow-500 text-2xl"
+			>
+				The delay between each letter. Only works if fullNode is set to false.
+				<strong class="block mt-3 text-green-500">Default: 0</strong>
+			</X>
+		</X>
+	</div>
+	<div class="p-6 pt-0">
+		<X 
+			type="h3"
+			class="underline"
+			iterations="1"
+			duration="600"
+			delayBetween="50"
+			delay="300"
+			trigger="visible"
+			fullNode="false"
+			retain="color"
+			easing="cubic-bezier(0.375, 0.8, 0.5, 0.375)"
+			animations="transform: [scaleX(0), scaleX(2), scaleX(1)] | color: [red, randomColor, yellow, randomColor, orange]"
+		>
+			clean
+		</X>
+		<X 
+			type="div"
+			class="mt-3 text-yellow-500"
+			iterations="1"
+			duration="900"
+			delay="300"
+			trigger="visible"
+			fullNode="true"
+			easing="linear"
+			direction="alternate-reverse"
+			animations="opacity: [0] | transform: [translateX(-70%)]"
+		>
+			<X 
+				type="p"
+				class="mt-3 text-yellow-500 text-2xl"
+			>
+				Decide if spans should continue to exist after the animation completes. Only works if
+				fullNode is set to false.
+				<strong class="block mt-3 text-green-500">Default: true</strong>
+			</X>
+		</X>
+	</div>
+	<div class="p-6 pt-0">
+		<X 
+			type="h3"
+			class="underline"
+			iterations="1"
+			duration="600"
+			delayBetween="50"
+			delay="300"
+			trigger="visible"
+			fullNode="false"
+			retain="color"
+			clean="false"
+			easing="cubic-bezier(0.375, 0.8, 0.5, 0.375)"
+			animations="transform: [scaleX(0), scaleX(2), scaleX(1)] | color: [red, randomColor, yellow, randomColor, orange]"
+		>
+			retain
+		</X>
+		<X 
+			type="div"
+			class="mt-3 text-yellow-500"
+			iterations="1"
+			duration="900"
+			delay="300"
+			trigger="visible"
+			fullNode="true"
+			easing="linear"
+			direction="alternate-reverse"
+			animations="opacity: [0] | transform: [translateX(-70%)]"
+		>
+			<X 
+				type="p"
+				class="mt-3 text-yellow-500 text-2xl"
+			>
+				You can retain specific properties, for example retain="color, transform" would retain both css properties last value
+				of the animation independent of fill. If not set the node will fall back to it's initial styles.
+				<strong class="block mt-3 text-green-500">Default: "false"</strong>
+			</X>
+		</X>
+	</div>
+	<div class="p-6 pt-0">
+		<X 
+			type="h3"
+			class="underline"
+			iterations="1"
+			duration="600"
+			delayBetween="50"
+			delay="300"
+			trigger="visible"
+			fullNode="false"
+			retain="color"
+			clean="false"
+			easing="cubic-bezier(0.375, 0.8, 0.5, 0.375)"
+			animations="transform: [scaleX(0), scaleX(2), scaleX(1)] | color: [red, randomColor, yellow, randomColor, orange]"
+		>
+			trigger
+		</X>
+		<X 
+			type="div"
+			class="mt-3 text-yellow-500"
+			iterations="1"
+			duration="900"
+			delay="300"
+			trigger="visible"
+			fullNode="true"
+			easing="linear"
+			direction="alternate-reverse"
+			animations="opacity: [0] | transform: [translateX(-70%)]"
+		>
+			<X 
+				type="p"
+				class="mt-3 text-yellow-500 text-2xl"
+			>
+				The trigger for the animation to run. Possible values: visible, visibleonce, click, mouseenter, mouseleave
+				<strong class="block mt-3 text-green-500">Default: visible</strong>
+			</X>
+		</X>
+	</div>
+	<div class="p-6 pt-0">
+		<X 
+			type="h3"
+			class="underline"
+			iterations="1"
+			duration="600"
+			delayBetween="50"
+			delay="300"
+			trigger="visible"
+			fullNode="false"
+			retain="color"
+			clean="false"
+			easing="cubic-bezier(0.375, 0.8, 0.5, 0.375)"
+			animations="transform: [scaleX(0), scaleX(2), scaleX(1)] | color: [red, randomColor, yellow, randomColor, orange]"
+		>
+			animations
+		</X>
+		<X 
+			type="div"
+			class="mt-3 text-yellow-500"
+			iterations="1"
+			duration="900"
+			delay="300"
+			trigger="visible"
+			fullNode="true"
+			easing="linear"
+			direction="alternate-reverse"
+			animations="opacity: [0] | transform: [translateX(-70%)]"
+		>
+			<X 
+				type="p"
+				class="mt-3 text-yellow-500 text-2xl"
+			>
+				The animations to run on the node or it's parts. <strong class="block mt-3">Example:</strong>
+				<span class="text-indigo-400">color: [#aa0033, #00aa33, red, orange, rgba(117, 117, 117, 0.9), randomColor, randomColor]</span>
+				<span class="text-red-600"> | </span>
+				<span class="text-indigo-400">transform: [translateX(-50%), scale(2), rotate(45deg)]</span>
+				<span class="text-red-600"> | </span>
+				<span class="text-indigo-400">padding: [3px, 6px, 9px]</span>
+				<strong class="text-pink-500 block mt-3">hint: randomColor applies a random color</strong>
+				<strong class="block mt-3 text-green-500">Default: ''</strong>
+			</X>
+		</X>
 	</div>
 </Default>
 

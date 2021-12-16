@@ -41,7 +41,7 @@
   <slot name="headerwrapper">
     <header class="fixed w-full z-50">
       <slot name="contentheader">
-        <div class="min-h-16 h-16 bg-astro opacity-80">
+        <div class="min-h-16 h-16 bg-astro">
           <Mainmenu menuItems={menuItems && menuItems.length && menuItems.length > 0 ? menuItems : defaultMenuItems} client:only></Mainmenu>
         </div>
       </slot>

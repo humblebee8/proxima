@@ -31,9 +31,7 @@ export default class Fx {
 		);
 	});
 	cleanUp = ((node) => {
-		// retain transform so no cleanup should happen
 		if ('false' !== this.retain) {
-			// this.retain += ', inline-block';
 			// get values to retain
 			let retainerObj = {};
 			this.retain.split(', ').forEach((retainProp) => {
@@ -41,14 +39,7 @@ export default class Fx {
 				if (undefined !== this.animations[MATCHES[0]]) {
 					const RVALUE = this.animations[MATCHES[0]][this.animations[MATCHES[0]].length - 1];
 					retainerObj[MATCHES[0]] = RVALUE;
-				} // else {
-					// check if inline block should be retained
-					// if ('inline-block' === MATCHES[0]) {
-					// 	retainerObj = Object.assign(retainerObj, {
-					// 		display: 'inline-block'
-					// 	});
-					// }
-				// }
+				}
 			});
 			Object.assign(node.style, retainerObj);
 		}
