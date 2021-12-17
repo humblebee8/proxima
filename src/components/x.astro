@@ -91,7 +91,7 @@ const animate = (target, f) => {
   @mouseenter={(event, store)=> {
 		if (true != event.target.isAnimating) {
 			if ('' !== animations && trigger.search('mouseenter') > -1 && trigger.search('mouseleave') < 0) {
-				aanimate(event.target,new store.Fx());
+				animate(event.target,new store.Fx());
 			}
 		}
   }}
