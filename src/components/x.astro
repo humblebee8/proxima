@@ -68,35 +68,35 @@ const animate = (target, fx) => {
     }
   }
   
-  @visible={(event, store)=> {
+  @visible={(event)=> {
 			if (true != event.target.isAnimating) {
 				if ('' !== animations && trigger.search('visibleonce') < 0 &&  trigger.search('visible') > -1) {
 				animate(event.target, f);
 			}
 		}
   }}
-  @visible:once={(event, store)=> {
+  @visible:once={(event)=> {
 			if (true != event.target.isAnimating) {
 				if ('' !== animations && trigger.search('visibleonce') > -1) {
 				animate(event.target, f);
 			}
 		}
   }}
-  @click={(event, store)=> {
+  @click={(event)=> {
 		if (true != event.target.isAnimating) {
 			if ('' !== animations && trigger.search('click') > -1) {
 				animate(event.target, f);
 			}
 		}
   }}
-  @mouseenter={(event, store)=> {
+  @mouseenter={(event)=> {
 		if (true != event.target.isAnimating) {
 			if ('' !== animations && trigger.search('mouseenter') > -1 && trigger.search('mouseleave') < 0) {
 				animate(event.target, f);
 			}
 		}
   }}
-  @mouseleave={(event, store)=> {
+  @mouseleave={(event)=> {
 		if (true != event.target.isAnimating) {
 			if ('' !== animations && trigger.search('mouseleave') > -1 && trigger.search('mouseenter') < 0) {
 				animate(event.target, f);
