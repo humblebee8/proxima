@@ -1,5 +1,6 @@
 ---
 import XElement from 'astro-xelement'
+import { Fx } from 'p13rnd-anifx';
 const {
 	type = 'span',
 	class: classList = '',
@@ -18,7 +19,7 @@ const {
 	trigger = "visible",
 	animations = ""
 } = Astro.props;
-
+const fx = new Fx();
 const t = {
 	duration: parseInt(duration),
 	easing: easing,
@@ -37,9 +38,8 @@ if ('' !== gradient) {
 	` + styles;
 }
 
-const animate = (target, f) => {
+const animate = (target, fx) => {
 	target.isAnimating = true;
-	const fx = f
 	fx.animateNode(target, {
 		animationString: animations, 
 		timing: timing,
@@ -56,49 +56,50 @@ const animate = (target, f) => {
   class={classList}
   define:vars={
     {
-		animate,
-		fullNode,
-		animations,
-		timing: t,
-		clean: clean,
-		retain: retain,
-		trigger,
-		delayBetween: delayBetween
+			animate,
+			fullNode,
+			animations,
+			timing: t,
+			clean: clean,
+			retain: retain,
+			trigger,
+			delayBetween: delayBetween,
+			f: fx
     }
   }
   
-  @visible={(event,store)=> {
+  @visible={(event, store)=> {
 			if (true != event.target.isAnimating) {
 				if ('' !== animations && trigger.search('visibleonce') < 0 &&  trigger.search('visible') > -1) {
-				animate(event.target,new store.Fx());
+				animate(event.target, f);
 			}
 		}
   }}
-  @visible:once={(event,store)=> {
+  @visible:once={(event, store)=> {
 			if (true != event.target.isAnimating) {
 				if ('' !== animations && trigger.search('visibleonce') > -1) {
-				animate(event.target,new store.Fx());
+				animate(event.target, f);
 			}
 		}
   }}
   @click={(event, store)=> {
 		if (true != event.target.isAnimating) {
 			if ('' !== animations && trigger.search('click') > -1) {
-				animate(event.target,new store.Fx());
+				animate(event.target, f);
 			}
 		}
   }}
   @mouseenter={(event, store)=> {
 		if (true != event.target.isAnimating) {
 			if ('' !== animations && trigger.search('mouseenter') > -1 && trigger.search('mouseleave') < 0) {
-				animate(event.target,new store.Fx());
+				animate(event.target, f);
 			}
 		}
   }}
   @mouseleave={(event, store)=> {
 		if (true != event.target.isAnimating) {
 			if ('' !== animations && trigger.search('mouseleave') > -1 && trigger.search('mouseenter') < 0) {
-				animate(event.target,new store.Fx());
+				animate(event.target, f);
 			}
 		}
   }}

@@ -3061,9 +3061,8 @@
   dependencies:
     "wrappy" "1"
 
-"p13rnd-anifx@^1.0.0":
-  "integrity" "sha512-3OEHmFQG4TEGTd6Y7NrGcoaTErXAQ3Uis35q/OXi2l+I3IXNw9E0JBzOJVESdYGy96YkonFopIQMc/XtXqetgg=="
-  "resolved" "https://registry.npmjs.org/p13rnd-anifx/-/p13rnd-anifx-1.0.0.tgz"
+"p13rnd-anifx@file:../anifx":
+  "resolved" "file:../anifx"
   "version" "1.0.0"
 
 "parent-module@^1.0.0":
