@@ -37,6 +37,7 @@
   bodyClasses={bodyClasses} 
   theme={theme} 
 >
+  <Fx/>
   <slot name="htmlhead"></slot>
   <slot name="headerwrapper">
     <header class="fixed w-full z-50">
@@ -45,7 +46,6 @@
           <Mainmenu menuItems={menuItems && menuItems.length && menuItems.length > 0 ? menuItems : defaultMenuItems} client:only></Mainmenu>
         </div>
       </slot>
-      <Fx/>
     </header>
   </slot>
   <slot name="mainwrapper">
