@@ -21,7 +21,7 @@
     "astro-icon": "^0.2.2",
     "astro-xelement": "latest",
     "autoprefixer": "^10.4.0",
-    "p13rnd-anifx": "^1.0.0",
+    "p13rnd-anifx": "^1.1.1",
     "postcss": "^8.4.4",
     "postcss-import": "^14.0.2",
     "postcss-preset-env": "^7.0.1"
